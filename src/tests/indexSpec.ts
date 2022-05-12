@@ -1,7 +1,10 @@
-import welcome from '../index';
+import app from '../app';
+import supertest from 'supertest'
 
-describe('function testing index', () => {
-    it('should expect an object instance', () => {
-        expect(welcome).toBeInstanceOf(Object)
+describe('resize endpoint test', () => {
+    it('should test the /resize endpoint', async() => {
+        const request = supertest(app);
+        const response = await request.get('/');
+        expect(response.status).toEqual(200);
     })
 })

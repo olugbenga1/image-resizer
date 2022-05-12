@@ -39,21 +39,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __importDefault(require("../app"));
-var supertest_1 = __importDefault(require("supertest"));
-describe('resize endpoint test', function () {
-    it('should test the /resize endpoint', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var request, response;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    request = (0, supertest_1.default)(app_1.default);
-                    return [4 /*yield*/, request.get('/')];
-                case 1:
-                    response = _a.sent();
-                    expect(response.status).toEqual(200);
-                    return [2 /*return*/];
-            }
-        });
-    }); });
-});
+exports.imageResizeSharp = void 0;
+var imagepath_1 = require("./imagepath");
+var sharp_1 = __importDefault(require("sharp"));
+// resize image function using the sharp constructor
+var imageResizeSharp = function (name, width, height) { return __awaiter(void 0, void 0, void 0, function () {
+    var imgPath, resizedImgPath, response, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                imgPath = "".concat(imagepath_1.imagePath, "/").concat(name, ".jpeg");
+                resizedImgPath = "".concat(imagepath_1.resizedImagePath, "/").concat(name, "_").concat(width, "_").concat(height, ".jpeg");
+                return [4 /*yield*/, (0, sharp_1.default)(imgPath)
+                        .resize(width, height)
+                        .toFile(resizedImgPath)];
+            case 1:
+                response = _a.sent();
+                console.log(response);
+                return [3 /*break*/, 3];
+            case 2:
+                err_1 = _a.sent();
+                console.log(err_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.imageResizeSharp = imageResizeSharp;
